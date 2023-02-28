@@ -15,7 +15,7 @@ All data was copied from the virtual machine workspace.
 ### Dataset analysis
 The images in the dataset appeared mostly high quality, with variable weather conditions and time of day. Majority of the images were from optimal daytime conditions and therefore some augmentations were made to the data to see how this affects the models performance. 
 
-![Good Image](assets\good-image.png)  
+![Good Image](\assets\good-image.png)  
 *Example of a good quality dataset image*
 
 ![Bad image](assets\bad-image.png)  
