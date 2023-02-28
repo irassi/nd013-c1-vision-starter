@@ -15,15 +15,15 @@ All data was copied from the virtual machine workspace.
 ### Dataset analysis
 The images in the dataset appeared mostly high quality, with variable weather conditions and time of day. Majority of the images were from optimal daytime conditions and therefore some augmentations were made to the data to see how this affects the models performance. 
 
-![Good Image](\assets\good-image.png)  
+![Good Image](assets/good-image.png)  
 *Example of a good quality dataset image*
 
-![Bad image](assets\bad-image.png)  
+![Bad image](assets/bad-image.png)  
 *Example of a bad quality dataset image, with additional augmentations layered on top*
 
 Looking at the classes of the ground truth bounding boxes in the training data, we can see that the images contain mostly cars and pedestrians and very rarely cyclists.
 
-![Classes](assets\classes.png)
+![Classes](assets/classes.png)
 
 ### Cross validation
 As I used the data from the workspace, I didn't change the preset training splits. This means that there were
@@ -33,7 +33,7 @@ As I used the data from the workspace, I didn't change the preset training split
 
 Training need a lot of data to be successful, whereas with testing quality can beat quantity in terms of getting good test results. The animation below shows how the model performed with the test data, it's clear there were a lot of false positives and it didn't do great in tight groups.
 
-![Inferences animation](assets\animation2.gif)  
+![Inferences animation](assets/animation2.gif)  
 *The Improved model in action*
 
 
@@ -41,14 +41,14 @@ Training need a lot of data to be successful, whereas with testing quality can b
 ### Reference experiment
 The reference experiment provided fluctuating results during it's run. The losses spiked up heavily at around 7000 but in the end the total loss settled to a little under 3. 
 
-![Reference model: loss](assets\reference-loss.png)  
+![Reference model: loss](assets/reference-loss.png)  
 *Reference model: loss*
 
 ### Evaluation:
 
 The evaluation run set the total loss  to about **2.7**. 
 
-![Reference model: evaluation](assets\reference-eval.png)
+![Reference model: evaluation](assets/reference-eval.png)
 *Reference model: evaluation*
 
 
@@ -72,12 +72,12 @@ To improve the performance of the model, I first applied augmentations to the tr
 
 Training the model on this augmented data lead to rapid improvements in the loss metrics, as can be seen in these graphs. The fluctuations are less severe and the values quickly got lower than in the reference run.
 
-![Improved model: loss](assets\improvement-loss.png)  
+![Improved model: loss](assets/improvement-loss.png)  
 *Improved model: loss*
 
 In the evaluation we gain confirmation for the improved performance. Total loss was about **1.2**.
 
-![Improved model: evaluation](assets\improvement-eval.png)  
+![Improved model: evaluation](assets/improvement-eval.png)  
 *Improved model: evaluation*
 
 |||||
