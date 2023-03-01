@@ -1,5 +1,7 @@
 # Project overview
 
+*This README.md is for project repository at https://github.com/irassi/nd013-c1-vision-starter*
+
 Self-driving cars will utilize methods similar to humans in operating a vehicle. They monitor their surroundings with all of their senses, interpret what they see, and make adjustments to the vehicle’s controls in order to maintain smooth and safe driving. In the case of the self-driving systems, the senses are the sensors such as lidars and cameras and interpreting these inputs is vitally important. 
 
 In this project we are looking at how the camera inputs can be used to understand what’s happening in traffic. We are teaching an artificial intelligence model to recognise objects in the images captured by a camera. We feed example data, from Waymo Open Datasets, to train the model and based on the findings of our evaluation we make adjustments to the model to try to reach greater performance.
@@ -20,6 +22,9 @@ The images in the dataset appeared mostly high quality, with variable weather co
 
 ![Bad image](assets/bad-image.png)  
 *Example of a bad quality dataset image, with additional augmentations layered on top*
+
+Other challenging conditions such as fog and rain:
+![Foggy image](assets/foggy-image.png) ![Rainy image](assets/rainy-image.png) 
 
 Looking at the classes of the ground truth bounding boxes in the training data, we can see that the images contain mostly cars and pedestrians and very rarely cyclists.
 
@@ -68,9 +73,25 @@ The evaluation run set the total loss  to about **2.7**.
 | Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ]| = 0.135|
 
 ## Improve on the reference
-To improve the performance of the model, I first applied augmentations to the training materials. Since the quality of the training materials was so high, both in terms of image quality and the conditions, I applied a set of variables to randomly decrease the quality. These were “random crop”, “random patch gaussian” (to mimic digital artefacts), “random jpeg quality” (to decrease detail quality and introduce compression artefacting) and “random adjust saturation” to under/over saturate the image. These augmentations had a noticeable effect on the image quality.
+To improve the performance of the model, I first applied augmentations to the training materials. Since the quality of the training materials was so high, both in terms of image quality and the conditions, I applied a set of variables to randomly decrease the quality. 
+These were 
++ **“random crop”** (for different image dimension)
++ **“random patch gaussian”** (to mimic digital artefacts)
++ **“random jpeg quality”** (to decrease detail quality and introduce compression artefacting)
++ **“random adjust saturation”** (to under/over saturate the image. Lower saturation (greyscale) in particular can help mimic nighttime conditions) 
 
-Training the model on this augmented data lead to rapid improvements in the loss metrics, as can be seen in these graphs. The fluctuations are less severe and the values quickly got lower than in the reference run.
+These augmentations had a noticeable effect on the image quality. Examples below. 
+
+![Random Patch Gaussian](/assets/augmentation-gausspatch.png)  
+*Random Patch Gaussian*
+
+![Random JPEG Quality](/assets/augmentation-jpeg.png)  
+*Random JPEG Quality*
+
+![Random Adjust Saturation](/assets/augmentation-saturation.png)  
+*Random Adjust Saturation*
+
+Training the model on this augmented data lead to rapid improvements in the loss metrics, as can be seen in these graphs. The fluctuations are less severe and the values quickly got lower than in the reference run. 
 
 ![Improved model: loss](assets/improvement-loss.png)  
 *Improved model: loss*
@@ -94,3 +115,8 @@ In the evaluation we gain confirmation for the improved performance. Total loss 
 | Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.028|
 | Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.236|
 | Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.252|
+
+## Further experimentation
+In hindsight the selection of augmentations, even if it did improve the model, was maybe not optimal for this particular project. The augmentations were chosen based on my assumption on real world issues that might arise with the sensor input, but in this particular case the evaluation dataset was unlikely to have some of these particular cases. Therefore the augmentations could have been tailored for the evaluation dataset to gain better evaluation score, but then that might not have been so universally applicable.
+
+More importantly, further experiments with different optimizers and a decreased learning rate would likely improve the model performance to a significant degree.
